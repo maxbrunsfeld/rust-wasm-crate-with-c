@@ -8,12 +8,12 @@ pub struct Point {
 }
 
 extern "C" {
-    fn add_points_in_c(a: Point, b: Point) -> Point;
+    fn add_points_in_c(a: *const Point, b: *const Point) -> Point;
 }
 
 #[wasm_bindgen]
 pub fn add_points_in_rust(a: Point, b: Point) -> Point {
-    unsafe { add_points_in_c(a, b) }
+    unsafe { add_points_in_c(&a as *const Point, &b as *const Point) }
 }
 
 #[wasm_bindgen]
